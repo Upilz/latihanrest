@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -21,6 +23,9 @@ import lombok.ToString;
 @Table(name="product_grocery")
 @PrimaryKeyJoinColumn(name="product_id")
 @DiscriminatorValue("Grocery")
+
+@RepositoryRestResource (path = "groceries")//buat singkat url pas manggilnya jadi tinggal
+//localhost/groceries aja gak/productgrocery
 
 public class ProductGrocery extends Product
 {
