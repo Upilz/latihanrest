@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,9 +24,11 @@ public class Brand extends BaseEntitiy
 {
 	//declare anotation id dihapus karena sudah di declare di class base entity
 	
+	@ApiModelProperty(value = "Brand's Name")
 	@Column(nullable = false) // karena nama di tabel dan di klass sama, tulis aja constraint null ablenya langsung
 	private String name;
 	
+	@ApiModelProperty(value = "Brand's Product Type")
 	@Column(name = "product_type") // beda nama tabel dan di klass, makanya harus di deklarkan lagi 
 	private String productType;
 	

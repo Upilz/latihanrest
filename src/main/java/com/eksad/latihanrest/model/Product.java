@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -39,22 +40,29 @@ public class Product {
 	
 	
 	//kalo default valuenya gak ada pake identity
+	//ID PRODUK
+	@ApiModelProperty(value = "Product's ID (Primary Key)")
 	@GeneratedValue(strategy = GenerationType.IDENTITY,
 			generator = "product_id" )
 	@SequenceGenerator(name ="product_id_seq", sequenceName = "product_id_seq")
 	private Long id;
 	
+	//ID BRAND
+	@ApiModelProperty(value = "Brand ID (Primary Key)")
 	@ManyToOne //kasitau ke jpa kalo dibawah ini sebuah relasi
 	@JoinColumn(name="brand_id")
 	private Brand brand;
 	
 	//tambahan pak kevin
+	@ApiModelProperty(value = "Brand ID (Primary Key)")
 	@Transient //variabel tidak terbaca sebagai kolom di database
 	private Long brandId;
 	
+	@ApiModelProperty(value = "Product's Name")
 	@Column(nullable = false)
 	private String name;
 	
+	@ApiModelProperty(value = "Product's Price")
 	@Column(nullable = false)
 	private BigDecimal price; 
 }

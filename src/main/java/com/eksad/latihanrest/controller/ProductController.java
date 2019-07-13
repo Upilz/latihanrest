@@ -5,7 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,8 +20,12 @@ import com.eksad.latihanrest.dao.ProductDao;
 import com.eksad.latihanrest.model.Brand;
 import com.eksad.latihanrest.model.Product;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
-@RequestMapping("product1")
+@RequestMapping("/api/product")//sebelum swagger "product1"
+@Api(tags="Product")
 public class ProductController {
 
 	@Autowired
@@ -26,15 +34,25 @@ public class ProductController {
 	@Autowired
 	BrandDao brandDao;
 	
-	@RequestMapping("getAll")
+	//GET ALL
+	@ApiOperation(
+			value = "API to Retrieve All Supermarket Product's Data",
+			notes = "Return All Supermarket Product's Data with JSON Format"
+			)
+	@GetMapping("getAll")
 	public List<Product> getAll(){
 		List<Product> result = new ArrayList<>();
 		productDao.findAll().forEach(result::add);
 		return result;
 	}
 	
+	//GET BY BRAND ID
 	//req untuk ngambil dari parameter
-	@RequestMapping("getByBrandId/{brandId}")
+	@ApiOperation(
+			value = "API to Retrieve Supermarket Product's Data Based On Selected Brand's ID",
+			notes = "Return Selected Supermarket Product's Data Based On Brand's ID with JSON Format"
+			)
+	@GetMapping("getByBrandId/{brandId}")
 	public List<Product> getByProductBrandId(@PathVariable Long brandId) 
 	{
 		List<Product> result = new ArrayList<Product>();
@@ -51,8 +69,14 @@ public class ProductController {
 	
 		
 	}
-	//save
-	@RequestMapping(value= "save", method = RequestMethod.POST)
+	
+	//SAVE / INSERT / ADD
+	@ApiOperation(
+			value = "API to Add / Insert New Supermarket Product's Data",
+			notes = "Add / Insert New Supermarket Product's Data with JSON Format",
+			tags = "Supermarket's Data Manipulation API"
+			)
+	@PostMapping(value= "save")
 	public Product save (@RequestBody Product product)
 	
 	{
@@ -69,7 +93,12 @@ public class ProductController {
 	}
 	
 	//UPDATE
-	@RequestMapping (value = "update/{id}", method = RequestMethod.PUT)
+	@ApiOperation(
+			value = "API to Update Supermarket Product's Data",
+			notes = "Update New Supermarket Product's Data with JSON Format",
+			tags = "Supermarket's Data Manipulation API"
+			)
+	@PutMapping (value = "update/{id}")
 	public Product update (@RequestBody Product product, @PathVariable Long id)
 	{
 		Product productSelected = productDao.findById(id).orElse(null);
@@ -86,7 +115,12 @@ public class ProductController {
 	}
 	
 	//DELETE
-	@RequestMapping(value="delete/{id}", method =  RequestMethod.DELETE)
+	@ApiOperation(
+			value = "Delete Supermarket Product's Data",
+			notes = "Delete Supermarket Product's Data with JSON Format",
+			tags = "Supermarket's Data Manipulation API"
+			)
+	@DeleteMapping(value="delete/{id}")
 	public HashMap<String, Object> delete(@PathVariable Long id)
 	{
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -96,7 +130,11 @@ public class ProductController {
 	}
 	
 	//SEARCH BY NAME
-	@RequestMapping("getBySearch/{search}")
+	@ApiOperation(
+			value = "API to Retrieve Supermarket Product's Data Based on Name",
+			notes = "Return Supermarket Product's Data Based on Name with JSON Format"
+			)
+	@GetMapping("getBySearch/{search}")
 	public List<Product> getBySearch(@PathVariable String search) {
 		List<Product> result = new ArrayList<Product>();
 		productDao.findBySearch(search).forEach(result::add);
