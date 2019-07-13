@@ -32,20 +32,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
  	@Override
  	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
- 		//set each pw first
- 		//admin
- 		String admin ="admin";
- 		String adminPassword = encoder().encode("curut");
- 		//user
- 		String user ="user";
- 		String userPassword = encoder().encode("lulung");
- 		
- 		//Memory Authentication
- 		auth.inMemoryAuthentication()
- 		.withUser(admin).password(adminPassword).roles("ADMIN","USER");
- 		//Memory Authentication
- 		auth.inMemoryAuthentication()
- 		.withUser(user).password(userPassword).roles("USER");
+// 		//set each pw first
+// 		//admin
+// 		String admin ="admin";
+// 		String adminPassword = encoder().encode("curut");
+// 		//user
+// 		String user ="user";
+// 		String userPassword = encoder().encode("lulung");
+// 		
+// 		//Memory Authentication
+// 		auth.inMemoryAuthentication()
+// 		.withUser(admin).password(adminPassword).roles("ADMIN","USER");
+// 		//Memory Authentication
+// 		auth.inMemoryAuthentication()
+// 		.withUser(user).password(userPassword).roles("USER");
  		
  		//call users service
  		auth.userDetailsService(usersService).passwordEncoder(encoder());

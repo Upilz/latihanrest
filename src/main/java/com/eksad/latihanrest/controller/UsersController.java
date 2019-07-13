@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ import com.eksad.latihanrest.dao.UsersRepositoryDao;
 import com.eksad.latihanrest.model.Users;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("admin")
 public class UsersController {
 	
 	//autowired
@@ -25,7 +26,7 @@ public class UsersController {
 	
 	//requestmap
 	//AS ADMIN + Hashmap
-	@RequestMapping("admin")
+	@RequestMapping("")
 	public HashMap<String, Object> admin()
 	{
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -61,6 +62,7 @@ public class UsersController {
 	
 	
 	//DELETE
+	@DeleteMapping("delete/{id}")
 	public String delete (@PathVariable int id)
 	{
 		usersRepositoryDao.deleteById(id);

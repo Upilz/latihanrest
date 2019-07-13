@@ -2,6 +2,7 @@ package com.eksad.latihanrest.service;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,6 +18,7 @@ import com.eksad.latihanrest.model.Users;
 public class UsersService implements UserDetailsService {
 
 	//Autowired
+	@Autowired
 	UsersRepositoryDao usersRepositoryDao;
 	
 	//Check username exist or not
